@@ -15,11 +15,11 @@ node {
     }
 
     stage('Packer') {
-	    sh ""
+	    sh "cd ${pwd()}/packer;packer build -var-file=/opt/terrform-packer-var-files/templates-variable.json templates.json"
 	}
 	
     stage('Terraform'){
-            
+         sh "cd ${pwd()}/terraform;terraform apply --auto-approve -var-file=/opt/terrform-packer-var-files/terraform.tfvars;terraform output --json > terraform.json"
      }
 
     stage('Inspec Testing') {

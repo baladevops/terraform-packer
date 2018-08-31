@@ -14,7 +14,7 @@ node {
     }
 
     stage('Packer') {
-	    
+	    sh ""
 	}
 	
     stage('Terraform'){

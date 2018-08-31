@@ -24,7 +24,8 @@ node {
 
     stage('Inspec Testing') {
 		try {
-			def inputFile = new File("./terraform/terraform.json")
+		    def workspace = manager.build.getEnvVars()["WORKSPACE"]
+			def inputFile = new File(workspace+"/terraform/terraform.json")
      		def InputJSON = new JsonSlurper().parseText(inputFile.text)
      		def IPAddress = InputJSON.public_ip_address.value
      		echo "IP Address: "+IPAddress

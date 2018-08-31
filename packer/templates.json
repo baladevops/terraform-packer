@@ -1,0 +1,49 @@
+{
+  "variables": {
+    "client_id": "",
+    "client_secret": "",
+    "tenant_id": "",
+    "subscription_id": "",
+    "resource_group_name":"",
+    "location": "",
+    "vm_size":""
+  },
+  "builders": [
+   {
+    "name":"Eureka",
+    "type": "azure-arm",
+    "client_id": "{{user `client_id`}}",
+    "client_secret": "{{user `client_secret`}}",
+    "tenant_id": "{{user `tenant_id`}}",
+    "subscription_id": "{{user `subscription_id`}}",
+
+    "managed_image_resource_group_name": "{{user `resource_group_name`}}",
+    "managed_image_name": "eureka-ubuntu-16.04-{{timestamp}}",
+
+    "os_type": "Linux",
+    "image_publisher": "Canonical",
+    "image_offer": "UbuntuServer",
+    "image_sku": "16.04-LTS",
+
+    "azure_tags": {
+        "dept": "Engineering",
+        "task": "Image deployment"
+    },
+
+    "location": "{{user `location` }}",
+    "vm_size": "{{user `vm_size`}}"
+  }],
+  "provisioners": [
+    {
+      "execute_command": "chmod +x {{ .Path }}; {{ .Vars }} sudo -E sh '{{ .Path }}'",
+      "inline": [
+        "sudo add-apt-repository ppa:webupd8team/java -y",
+        "sudo apt-get update -y",
+        "sudo echo debconf shared/accepted-oracle-license-v1-1 select true | sudo debconf-set-selections",
+        "sudo apt-get install oracle-java8-installer -y"
+      ],
+      "inline_shebang": "/bin/sh -x",
+      "type": "shell"
+    }
+  ]
+}

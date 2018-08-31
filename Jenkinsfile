@@ -28,9 +28,9 @@ node {
      		def InputJSON = new JsonSlurper().parseText(inputFile.text)
      		def IPAddress = InputJSON.public_ip_address.value
      		echo "IP Address: "+IPAddress
-     		sh "inspec exec cis_tests.rb --reporter cli junit:junit.xml -t ssh://adminis@"+IPAddress+" -i ~/.ssh/id_rsa"					
+     		sh "inspec exec cis_tests.rb --reporter cli junit:junit.xml -t ssh://adminis@${IPAddress} -i ~/.ssh/id_rsa"					
 		} catch(err) {
-			echo "Some Tests Failed!"
+			echo "Some Tests Failed! "+err
 		} finally {
 			junit 'junit.xml'
 		}

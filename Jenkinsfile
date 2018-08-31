@@ -1,4 +1,5 @@
 #!/usr/bin/env groovy
+import groovy.json.JsonSlurper
 
 node {
     stage('Pull') {
@@ -23,7 +24,11 @@ node {
 
     stage('Inspec Testing') {
 		try {
-			//sh "inspec exec cis_tests.rb --reporter cli junit:junit.xml"			
+			def inputFile = new File("terraform/terraform.json")
+     		def InputJSON = new JsonSlurper().parseText(inputFile.text)
+     		def IPAddress = InputJSON.public_ip_address.value
+     		echo "IP Address: "+IPAddress
+     		sh "inspec exec cis_tests.rb --reporter cli junit:junit.xml -t ssh://adminis@"+IPAddress+" -i ~/.ssh/id_rsa"					
 		} catch(err) {
 			//echo "Some Tests Failed!"
 		} finally {

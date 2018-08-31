@@ -15,10 +15,14 @@ node {
     }
 
     stage('Packer') {
-	    sh "cd ${pwd()}/packer;packer build -var-file=/opt/terrform-packer-var-files/templates-variable.json templates.json"
+	 def pcHome = tool name: 'Packer', type: 'com.cloudbees.jenkins.plugins.customtools.CustomTool'
+         env.PATH = "${pcHome}:${env.PATH}"
+	  sh "cd ${pwd()}/packer;packer build -var-file=/opt/terrform-packer-var-files/templates-variable.json templates.json"
 	}
 	
     stage('Terraform'){
+	 def tfHome = tool name: 'Terraform', type: 'com.cloudbees.jenkins.plugins.customtools.CustomTool'
+         env.PATH = "${tfHome}:${env.PATH}"
          sh "cd ${pwd()}/terraform;terraform apply --auto-approve -var-file=/opt/terrform-packer-var-files/terraform.tfvars;terraform output --json > terraform.json"
      }
 

@@ -10,7 +10,7 @@ node {
     }
 
     stage('Build') {        
-        sh "mvn clean install -DskipTests=true"
+        sh "mvn -f complete/pom.xml clean install -DskipTests=true"
     }
 
     stage('Packer') {

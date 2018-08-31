@@ -15,17 +15,39 @@ node {
     }
 
     stage('Packer') {
+	def Build = false;
+	try {
+		input message: 'Build?', ok: 'Build'
+		Build = true
+		} catch (err) {
+		Build = false
+		currentBuild.result = 'SUCCESS'
+	}
+	
+       if (Build){   
 	 def pcHome = tool name: 'Packer', type: 'com.cloudbees.jenkins.plugins.customtools.CustomTool'
          env.PATH = "${pcHome}:${env.PATH}"
 	  sh "cd ${pwd()}/packer;packer build -var-file=/opt/terrform-packer-var-files/templates-variable.json templates.json"
-	}
+        }
+    }	
 	
     stage('Terraform'){
+	def Apply = false;
+	try {
+	    input message: 'Apply?', ok: 'Apply'
+	    Apply = true
+	   } catch (err) {
+	     Apply = false
+	     currentBuild.result = 'SUCCESS'
+	  }
+	
+       if (Apply){    
 	 def tfHome = tool name: 'Terraform', type: 'com.cloudbees.jenkins.plugins.customtools.CustomTool'
          env.PATH = "${tfHome}:${env.PATH}"
-         sh "cd ${pwd()}/terraform;terraform apply --auto-approve -var-file=/opt/terrform-packer-var-files/terraform.tfvars;terraform output --json > terraform.json"
-     }
-
+         sh "cd ${pwd()}/terraform;terraform init;terraform apply --auto-approve -var-file=/opt/terrform-packer-var-files/terraform.tfvars;terraform output --json > terraform.json"
+       }
+    }
+	
     stage('Inspec Testing') {
 		try {		    
 			def inputFile = new File(pwd()+"/terraform/terraform.json")

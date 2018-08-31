@@ -30,9 +30,9 @@ node {
      		echo "IP Address: "+IPAddress
      		sh "inspec exec cis_tests.rb --reporter cli junit:junit.xml -t ssh://adminis@"+IPAddress+" -i ~/.ssh/id_rsa"					
 		} catch(err) {
-			//echo "Some Tests Failed!"
+			echo "Some Tests Failed!"
 		} finally {
-			//junit 'junit.xml'
+			junit 'junit.xml'
 		}
 		
     }	

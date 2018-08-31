@@ -81,9 +81,9 @@ resource "azurerm_virtual_machine" "eureka_server" {
 
  provisioner "remote-exec" {
     inline = [
-      "nohup java -jar /opt/eureka-service.jar >> /opt/eureka-server.log &",
+      "nohup java -jar /opt/eureka-service.jar >> /opt/eureka-service.log &",
       "sleep 50s",
-      "nohup java -jar /opt/eureka-client.jar >> /opt/eureka-server.log"
+      "nohup java -jar /opt/eureka-client.jar >> /opt/eureka-client.log &"
     ]
   }
 

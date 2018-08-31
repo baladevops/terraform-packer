@@ -78,6 +78,15 @@ resource "azurerm_virtual_machine" "eureka_server" {
   tags {
     environment = "staging"
   }
+
+ provisioner "remote-exec" {
+    inline = [
+      "nohup java -jar /opt/eureka-service.jar >> /opt/eureka-server.log &",
+      "sleep 50s",
+      "nohup java -jar /opt/eureka-client.jar >> /opt/eureka-server.log"
+    ]
+  }
+
 }
 
 data "azurerm_public_ip" "eureka_server" {

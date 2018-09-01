@@ -78,15 +78,14 @@ resource "azurerm_virtual_machine" "eureka_server" {
   tags {
     environment = "staging"
   }
-
  
-connection {
+
+ provisioner "remote-exec" {
+   connection {
     type = "ssh"
     user = "adminis"
     private_key = "${file("~/.ssh/id_rsa")}"
-  } 
-
- provisioner "remote-exec" {
+  }
     inline = [
       "nohup java -jar /opt/eureka-service.jar >> /opt/eureka-service.log &",
       "sleep 50s",

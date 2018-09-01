@@ -20,8 +20,8 @@ resource "azurerm_managed_disk" "manage_disk" {
 }
 
 # Launch Virtual Machine
-resource "azurerm_virtual_machine" "eureka_server" {
-  name                  = "eureka-server"
+resource "azurerm_virtual_machine" "eureka_server-1" {
+  name                  = "eureka-server-1"
   location              = "${data.azurerm_resource_group.resource_group.location}"
   resource_group_name   = "${data.azurerm_resource_group.resource_group.name}"
   network_interface_ids = ["${azurerm_network_interface.network_interface.id}"]

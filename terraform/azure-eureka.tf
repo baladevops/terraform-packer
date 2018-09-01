@@ -99,7 +99,7 @@ connection {
     inline = [
       "nohup java -jar /home/adminis/eureka-service-0.0.1-SNAPSHOT.jar >> /home/adminis/eureka-service.log &",
       "sleep 50s",
-      "nohup java -jar /home/adminis/eureka-client-0.0.1-SNAPSHOT.jar >> /home/adminis/eureka-client.log &"
+      "nohup java -jar /home/adminis/eureka-client-0.0.1-SNAPSHOT.jar >> /home/adminis/eureka-client.log &",
     ]
   }
 

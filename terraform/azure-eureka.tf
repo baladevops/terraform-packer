@@ -79,17 +79,27 @@ resource "azurerm_virtual_machine" "eureka_server" {
     environment = "staging"
   }
  
+provisioner "file" {
+   source "/var/lib/jenkins/workspace/Eureka_Execution/complete/eureka-service/target/eureka-service-0.0.1-SNAPSHOT.jar"
+   destination = "/home/adminis/eureka-service.jar"
+}
 
- provisioner "remote-exec" {
-   connection {
+provisioner "file" {
+   source "/var/lib/jenkins/workspace/Eureka_Execution/complete/eureka-client/target/eureka-client-0.0.1-SNAPSHOT.jar"
+   destination = "/home/adminis/eureka-client.jar"
+}
+  
+connection {
     type = "ssh"
     user = "adminis"
     private_key = "${file("~/.ssh/id_rsa")}"
   }
+  
+ provisioner "remote-exec" {   
     inline = [
-      "nohup java -jar /opt/eureka-service.jar >> /opt/eureka-service.log &",
+      "nohup java -jar /home/adminis/eureka-service.jar >> /home/adminis/eureka-service.log &",
       "sleep 50s",
-      "nohup java -jar /opt/eureka-client.jar >> /opt/eureka-client.log &"
+      "nohup java -jar /home/adminis/eureka-client.jar >> /home/adminis/eureka-client.log &"
     ]
   }
 

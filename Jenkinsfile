@@ -49,18 +49,28 @@ node {
     }
 	
     stage('Inspec Testing') {
-		try {		    
-			def inputFile = new File(pwd()+"/terraform/terraform.json")
-     		def InputJSON = new JsonSlurperClassic().parseText(inputFile.text)
-     		def IPAddress = InputJSON.public_ip_address.value
-     		echo "IP Address: "+IPAddress
-     		sh "inspec exec cis_tests.rb --reporter cli junit:junit.xml -t ssh://adminis@${IPAddress} -i ~/.ssh/id_rsa"					
-		} catch(err) {
-			echo "Some Tests Failed! "+err
-		} finally {
-			junit 'junit.xml'
-		}
-		
+	def RunTest = false;
+	try {
+	    input message: 'RunTest?', ok: 'RunTest'
+	    RunTest = true
+	   } catch (err) {
+	     RunTest = false
+	     currentBuild.result = 'SUCCESS'
+	  }
+	
+       if (RunTest){    
+	 try {		    
+	   def inputFile = new File(pwd()+"/terraform/terraform.json")
+     	   def InputJSON = new JsonSlurperClassic().parseText(inputFile.text)
+     	   def IPAddress = InputJSON.public_ip_address.value
+     	   echo "IP Address: "+IPAddress
+     	   sh "inspec exec cis_tests.rb --reporter cli junit:junit.xml -t ssh://adminis@${IPAddress} -i ~/.ssh/id_rsa"					
+	 } catch(err) {
+	   echo "Some Tests Failed! "+err
+	 } finally {
+	   junit 'junit.xml'
+	 }
+       }	
     }	
    
    stage('Terraform Teardown'){

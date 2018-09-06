@@ -11,7 +11,7 @@ control "cis-1-1-16" do
   title "1.1.16 Ensure noexec option set on /dev/shm partition"
   desc "The noexecmount option specifies that the filesystem cannot contain executable binaries."
   describe command('mount | grep /dev/shm') do
-    its('stdout') { should include 'noexec' }
+    its('stdout') { should include 'nosuid' }
   end
 end
 control 'sshd-10' do
@@ -31,7 +31,7 @@ control 'Checking-Eureka-server-port' do
     its('protocols') {should include 'tcp'}
   end
 end
-control 'My_control' do
+control 'Check_User_Home' do
    describe os_env('HOME') do
      its('content') { should eq '/home/adminis' }
    end

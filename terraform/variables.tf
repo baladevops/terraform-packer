@@ -12,12 +12,12 @@ variable "computer_name" {
 
 variable "admin_username" {
   description = "Machine_user_name"
-  default = "adminis"
+  default = "please input your value"
 }
 
 variable "admin_password" {
   description = "Machine_password"
-  default = "Password1234!"
+  default = "please inpuut your vaule"
 }
 
 variable "resource_group" {

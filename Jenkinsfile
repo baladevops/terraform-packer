@@ -44,7 +44,7 @@ node {
        if (Apply){    
 	 def tfHome = tool name: 'Terraform', type: 'com.cloudbees.jenkins.plugins.customtools.CustomTool'
          env.PATH = "${tfHome}:${env.PATH}"
-         sh "cd /opt/git_stap/gs-service-registration-and-discovery/terraform/;terraform init;terraform apply --auto-approve ;terraform output --json > terraform.json"
+         sh "cd /opt/git_stap/gs-service-registration-and-discovery/terraform/;terraform init;terraform plan -out=tfplan;terraform apply --auto-approve tfplan;terraform output --json > terraform.json"
        }
     }
 	

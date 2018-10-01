@@ -27,7 +27,7 @@ node {
        if (Build){   
 	 def pcHome = tool name: 'Packer', type: 'com.cloudbees.jenkins.plugins.customtools.CustomTool'
          env.PATH = "${pcHome}:${env.PATH}"
-	  sh "cd ${pwd()}/packer;packer build -var-file=/opt/terrform-packer-var-files/templates-variable.json templates.json"
+	  sh "cd ${pwd()}/packer; packer build /opt/git_stap/gs-service-registration-and-discovery/packer/templates.json"
         }
     }	
 	
@@ -44,7 +44,7 @@ node {
        if (Apply){    
 	 def tfHome = tool name: 'Terraform', type: 'com.cloudbees.jenkins.plugins.customtools.CustomTool'
          env.PATH = "${tfHome}:${env.PATH}"
-         sh "cd ${pwd()}/terraform;terraform init;terraform apply --auto-approve -var-file=/opt/terrform-packer-var-files/terraform.tfvars;terraform output --json > terraform.json"
+         sh "cd ${pwd()}/terraform;terraform init;terraform apply --auto-approve -var-file=/opt/git_stap/gs-service-registration-and-discovery/;terraform output --json > terraform.json"
        }
     }
 	

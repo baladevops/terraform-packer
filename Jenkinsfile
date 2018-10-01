@@ -27,7 +27,7 @@ node {
        if (Build){   
 	 def pcHome = tool name: 'Packer', type: 'com.cloudbees.jenkins.plugins.customtools.CustomTool'
          env.PATH = "${pcHome}:${env.PATH}"
-	  sh "cd ${pwd()}/packer;packer build -var-file=/opt/git_stap/gs-service-registration-and-discovery/packer/templates.json"
+	  sh "cd /opt/git_stap/gs-service-registration-and-discovery;packer build templates.json"
         }
     }	
 	

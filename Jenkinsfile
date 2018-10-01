@@ -44,7 +44,7 @@ node {
        if (Apply){    
 	 def tfHome = tool name: 'Terraform', type: 'com.cloudbees.jenkins.plugins.customtools.CustomTool'
          env.PATH = "${tfHome}:${env.PATH}"
-         sh "cd ${pwd()}/terraform;terraform init;terraform apply --auto-approve -var-file=/opt/git_stap/gs-service-registration-and-discovery/terraform/terraform.tfvars;terraform output --json > terraform.json"
+         sh "cd /opt/git_stap/gs-service-registration-and-discovery/terraform/;terraform init;terraform apply --auto-approve ;terraform output --json > terraform.json"
        }
     }
 	
@@ -60,11 +60,11 @@ node {
 	
        if (RunTest){    
 	 try {		    
-	   def inputFile = new File(pwd()+"/terraform/terraform.json")
+	   def inputFile = new File("/opt/git_stap/gs-service-registration-and-discovery/terraform/terraform.json")
      	   def InputJSON = new JsonSlurperClassic().parseText(inputFile.text)
      	   def IPAddress = InputJSON.public_ip_address.value
      	   echo "IP Address: "+IPAddress
-     	   sh "inspec exec cis_tests.rb --reporter cli junit:junit.xml -t ssh://adminis@${IPAddress} -i ~/.ssh/id_rsa"					
+     	   sh "inspec exec cis_tests.rb --reporter cli junit:junit.xml -t ssh://baladevops@${IPAddress} -i /home/baladevops/.ssh/id_rsa"					
 	 } catch(err) {
 	   echo "Some Tests Failed! "+err
 	 } finally {
@@ -86,7 +86,7 @@ node {
        if (Teardown){    
 	 def tfHome = tool name: 'Terraform', type: 'com.cloudbees.jenkins.plugins.customtools.CustomTool'
          env.PATH = "${tfHome}:${env.PATH}"
-         sh "cd ${pwd()}/terraform;terraform destroy --force -var-file=/opt/terrform-packer-var-files/terraform.tfvars"
+         sh "cd /opt/git_stap/gs-service-registration-and-discovery/terraform/;terraform destroy --force"
        }
     }	
    	

@@ -33,6 +33,6 @@ control 'Checking-Eureka-server-port' do
 end
 control 'Check_User_Home' do
    describe os_env('HOME') do
-     its('content') { should eq '/home/adminis' }
+     its('content') { should eq '/home/baladevops' }
    end
 end

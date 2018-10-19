@@ -110,6 +110,3 @@ data "azurerm_public_ip" "eureka_server" {
   resource_group_name = "${azurerm_virtual_machine.eureka_server.resource_group_name}"
 }
 
-output "public_ip_address" {
-  value = "${data.azurerm_public_ip.eureka_server.ip_address}"
-}

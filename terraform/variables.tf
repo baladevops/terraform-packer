@@ -22,6 +22,7 @@ variable "admin_password" {
 
 variable "resource_group" {
   description = "abc-sg"
+  default = "abc-sg"
 }
 
 variable "vm_size" {

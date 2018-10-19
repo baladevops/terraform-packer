@@ -1,12 +1,12 @@
 {
   "variables": {
-    "client_id": "",
-    "client_secret": "",
-    "tenant_id": "",
-    "subscription_id": "",
-    "resource_group_name":"",
-    "location": "",
-    "vm_size":""
+    "client_id": "0e10357c-2eac-4eeb-a83f-3908778ff6bc",
+    "client_secret": "c477897b-0fc4-4dbe-b43e-c52ce2d06f0a",
+    "tenant_id": "2c1f8453-5cc2-44f7-a93f-49ab55dcaab8",
+    "subscription_id": "3216b735-086e-46b2-9363-44095f8213e1",
+    "resource_group_name":"abc-sg",
+    "location": "eastasia",
+    "vm_size":"Standard_D2_v3"
   },
   "builders": [
    {

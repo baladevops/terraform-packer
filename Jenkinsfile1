@@ -44,7 +44,7 @@ node {
        if (Apply){    
 	 def tfHome = tool name: 'Terraform', type: 'com.cloudbees.jenkins.plugins.customtools.CustomTool'
          env.PATH = "${tfHome}:${env.PATH}"
-        sh "cd ${pwd()}/terraform;terraform init;terraform apply --out terraform.json"
+        sh "cd ${pwd()}/terraform;terraform init;terraform apply"
        }
     }
 	

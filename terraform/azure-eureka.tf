@@ -71,7 +71,7 @@ resource "azurerm_virtual_machine" "eureka_server" {
     disable_password_authentication = false
     ssh_keys = [{
       path     = "/home/${var.admin_username}/.ssh/authorized_keys"
-      key_data = "${file("/home/baldaevops/.ssh/id_rsa.pub")}"
+      key_data = "${file("/home/baladevops/.ssh/id_rsa.pub")}"
     }]
   }
 

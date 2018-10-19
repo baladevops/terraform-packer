@@ -92,7 +92,7 @@ provisioner "file" {
 connection {
     type = "ssh"
     user = "baladevops"
-    private_key = "${file("/home/baladevops/.ssh/id_rsa")}"
+    private_key = "/home/baladevops/.ssh/id_rsa"
   }
   
  provisioner "remote-exec" {   

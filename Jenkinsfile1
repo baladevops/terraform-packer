@@ -87,7 +87,7 @@ node {
        if (Teardown){    
 	 def tfHome = tool name: 'Terraform', type: 'com.cloudbees.jenkins.plugins.customtools.CustomTool'
          env.PATH = "${tfHome}:${env.PATH}"
-         sh "cd ${pwd()}/terraform;terraform destroy --force -var-file=/opt/terrform-packer-var-files/terraform.tfvars"
+         sh "cd ${pwd()}/terraform;terraform destroy --force"
        }
     }	
    	

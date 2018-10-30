@@ -67,11 +67,11 @@ resource "azurerm_virtual_machine" "eureka_server" {
     admin_password = "${var.admin_password}"
   }
 
-  os_profile_linux_config {
+ os_profile_linux_config {
     disable_password_authentication = false
     ssh_keys = [{
-      path     = "/home/balaazure/.ssh/authorized_keys"
-      key_data = "/home/balaazure/.ssh/id_rsa.pub"
+      path     = "/home/${var.admin_username}/.ssh/authorized_keys"
+      key_data = "${file("~/.ssh/id_rsa.pub")}"
     }]
   }
 

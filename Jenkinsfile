@@ -64,6 +64,7 @@ node {
      	   def InputJSON = new JsonSlurperClassic().parseText(inputFile.text)
      	   def IPAddress = InputJSON.public_ip_address.value
      	   echo "IP Address: "+IPAddress
+	   echo "CHef-Inspec testing in progress..."
      	   sh "inspec exec cis_tests.rb --reporter cli junit:junit.xml -t ssh://adminis@${IPAddress} -i ~/.ssh/id_rsa"					
 	 } catch(err) {
 	   echo "Some Tests Failed! "+err

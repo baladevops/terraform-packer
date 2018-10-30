@@ -12,7 +12,7 @@ variable "computer_name" {
 
 variable "admin_username" {
   description = "Machine_user_name"
-  default = "baladevops"
+  default = "balaazure"
 }
 
 variable "admin_password" {

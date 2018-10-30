@@ -70,8 +70,8 @@ resource "azurerm_virtual_machine" "eureka_server" {
   os_profile_linux_config {
     disable_password_authentication = false
     ssh_keys = [{
-      path     = "/home/baladevops/.ssh/authorized_keys"
-      key_data = "/home/baladevops/.ssh/id_rsa.pub"
+      path     = "/home/balaazure/.ssh/authorized_keys"
+      key_data = "/home/balaazure/.ssh/id_rsa.pub"
     }]
   }
 
@@ -81,25 +81,25 @@ resource "azurerm_virtual_machine" "eureka_server" {
  
 provisioner "file" {
    source = "/var/lib/jenkins/workspace/Eureka_Execution/complete/eureka-service/target/eureka-service-0.0.1-SNAPSHOT.jar"
-   destination = "/home/baladevops/eureka-service-0.0.1-SNAPSHOT.jar"
+   destination = "/home/balaazure/eureka-service-0.0.1-SNAPSHOT.jar"
 }
 
 provisioner "file" {
    source = "/var/lib/jenkins/workspace/Eureka_Execution/complete/eureka-client/target/eureka-client-0.0.1-SNAPSHOT.jar"
-   destination = "/home/baladevops/eureka-client-0.0.1-SNAPSHOT.jar"
+   destination = "/home/balaazure/eureka-client-0.0.1-SNAPSHOT.jar"
 }
   
 connection {
     type = "ssh"
-    user = "baladevops"
-    private_key = "/home/baladevops/.ssh/id_rsa"
+    user = "balaazure"
+    private_key = "/home/balaazure/.ssh/id_rsa"
   }
   
  provisioner "remote-exec" {   
     inline = [
-      "nohup java -jar /home/baladevops/eureka-service-0.0.1-SNAPSHOT.jar >> /home/adminis/eureka-service.log &",
+      "nohup java -jar /home/balaazure/eureka-service-0.0.1-SNAPSHOT.jar >> /home/adminis/eureka-service.log &",
       "sleep 100s",
-      "nohup java -jar /home/baladevops/eureka-client-0.0.1-SNAPSHOT.jar >> /home/adminis/eureka-client.log &"
+      "nohup java -jar /home/balaazure/eureka-client-0.0.1-SNAPSHOT.jar >> /home/adminis/eureka-client.log &"
     ]
   }
 

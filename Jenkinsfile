@@ -68,6 +68,7 @@ node {
      	   sh "inspec exec cis_tests.rb --reporter cli junit:junit.xml -t ssh://baladevops@${IPAddress} -i /home/baladevops/.ssh/id_rsa"					
 	 } catch(err) {
 	   echo "Some Tests Failed! "+err
+	   echo "Hello"
 	 } finally {
 	   junit 'junit.xml'
 	 }
